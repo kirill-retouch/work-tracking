@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+}
+
+.hours {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px; /* Отступ, чтобы выровнять с днями */
+    margin-bottom: 10px;
+}
+
+.hour {
+    flex-basis: calc((100% - 50px) / 24); /* Точно делим на 24 части */
+    text-align: center;
+    font-size: 10px;
+}
+
+.schedule {
+    display: flex;
+}
+
+.days {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+.day-label {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.days-container {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 50px); /* Ширина, соответствующая 24 часам */
+}
+
+.day {
+    position: relative;
+    height: 40px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: row;
+}
+
+.segment {
+    position: absolute;
+    top: 15%; /* Отступ сверху */
+    bottom: 15%; /* Отступ снизу */
+    background-color: green;
+    opacity: 0.8;
+    z-index: 2; /* Сегменты выше сетки */
+}
+
+.day::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: repeating-linear-gradient(
+        to right,
+        #ddd,
+        #ddd 1px,
+        transparent 1px,
+        transparent calc((100% - 1px) / 24)
+    );
+    z-index: 1; /* Сетка ниже сегментов */
+}
