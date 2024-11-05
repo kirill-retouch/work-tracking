@@ -1,19 +1,11 @@
-const workHours = {
-    Mon: [{ start: "01:00", end: "02:30" }, { start: "12:15", end: "14:45" }],
-    Tue: [],
-    Wed: [{ start: "09:00", end: "15:30" }],
-    Thu: [{ start: "16:00", end: "17:30" }],
-    Fri: [],
-    Sat: [{ start: "08:00", end: "12:00" }],
-    Sun: [{ start: "03:15", end: "04:45" }, { start: "06:30", end: "09:00" }]
-};
-
+// Функция для перевода времени в проценты
 function timeToPercent(time) {
     const [hours, minutes] = time.split(":").map(Number);
     return ((hours * 60 + minutes) / 1440) * 100;
 }
 
-function renderSchedule() {
+// Функция рендера графика по загруженным данным
+function renderSchedule(workHours) {
     const days = document.querySelectorAll(".day");
     days.forEach(day => {
         const dayName = day.getAttribute("data-day");
@@ -22,15 +14,39 @@ function renderSchedule() {
             const startPercent = timeToPercent(segment.start);
             const endPercent = timeToPercent(segment.end);
             const durationPercent = endPercent - startPercent;
-            
+
             const segmentDiv = document.createElement("div");
             segmentDiv.classList.add("segment");
             segmentDiv.style.left = `${startPercent}%`;
             segmentDiv.style.width = `${durationPercent}%`;
-            
+
             day.appendChild(segmentDiv);
         });
     });
 }
 
-renderSchedule();
+// Функция для загрузки JSON-файла с сервера
+async function loadWorkSessions() {
+    try {
+        const response = await fetch("work_time_log.json");
+        const data = await response.json();
+
+        // Преобразование данных в формат, понятный renderSchedule
+        const workHours = data.reduce((acc, session) => {
+            const day = new Date(session.start_time).toLocaleDateString("en-US", { weekday: 'short' });
+            const startTime = new Date(session.start_time).toLocaleTimeString("en-US", { hour12: false }).slice(0, 5);
+            const endTime = new Date(session.end_time).toLocaleTimeString("en-US", { hour12: false }).slice(0, 5);
+            
+            if (!acc[day]) acc[day] = [];
+            acc[day].push({ start: startTime, end: endTime });
+            return acc;
+        }, {});
+
+        renderSchedule(workHours);
+    } catch (error) {
+        console.error("Ошибка загрузки данных:", error);
+    }
+}
+
+// Запуск загрузки данных и рендеринга
+loadWorkSessions();
