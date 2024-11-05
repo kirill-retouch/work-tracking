@@ -9,19 +9,22 @@ body {
 
 .schedule-container {
     display: flex;
-    flex-direction: column;
     width: 1000px;
+}
+
+.table-container {
+    flex-grow: 1;
 }
 
 .hours {
     display: flex;
     justify-content: space-between;
-    padding-left: 50px; /* Отступ, чтобы выровнять с днями */
+    padding-left: 50px;
     margin-bottom: 10px;
 }
 
 .hour {
-    flex-basis: calc((100% - 50px) / 24); /* Точно делим на 24 части */
+    flex-basis: calc((100% - 50px) / 24);
     text-align: center;
     font-size: 10px;
 }
@@ -49,7 +52,7 @@ body {
 .days-container {
     display: flex;
     flex-direction: column;
-    width: calc(100% - 50px); /* Ширина, соответствующая 24 часам */
+    width: calc(100% - 50px);
 }
 
 .day {
@@ -63,11 +66,11 @@ body {
 
 .segment {
     position: absolute;
-    top: 15%; /* Отступ сверху */
-    bottom: 15%; /* Отступ снизу */
+    top: 15%;
+    bottom: 15%;
     background-color: green;
     opacity: 0.8;
-    z-index: 2; /* Сегменты выше сетки */
+    z-index: 2;
 }
 
 .day::before {
@@ -84,5 +87,24 @@ body {
         transparent 1px,
         transparent calc((100% - 1px) / 24)
     );
-    z-index: 1; /* Сетка ниже сегментов */
+    z-index: 1;
+}
+
+.total-time-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 15px;
+}
+
+.total-time {
+    font-size: 12px;
+    color: #333;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    width: 60px;
+    opacity: 0.9;
 }
