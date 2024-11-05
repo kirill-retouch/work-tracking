@@ -5,15 +5,19 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #f0f0f0;
+    margin: 0;
 }
 
 .schedule-container {
     display: flex;
-    width: 1000px;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .table-container {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .hours {
@@ -52,7 +56,7 @@ body {
 .days-container {
     display: flex;
     flex-direction: column;
-    width: calc(100% - 50px);
+    flex-grow: 1;
 }
 
 .day {
@@ -61,7 +65,6 @@ body {
     border: 1px solid #ccc;
     background-color: #f9f9f9;
     display: flex;
-    flex-direction: row;
 }
 
 .segment {
@@ -90,11 +93,13 @@ body {
     z-index: 1;
 }
 
+/* Контейнер для итогового времени */
 .total-time-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around; /* Равномерное распределение */
     margin-left: 15px;
+    height: auto; /* Высота будет совпадать с `.schedule` */
 }
 
 .total-time {
@@ -107,4 +112,5 @@ body {
     text-align: center;
     width: 60px;
     opacity: 0.9;
+    height: 40px; /* Фиксированная высота для выравнивания с ячейками таблицы */
 }
