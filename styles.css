@@ -112,4 +112,7 @@ body {
     width: 60px;
     opacity: 0.9;
     height: 40px; /* Фиксированная высота для соответствия ячейкам таблицы */
+    display: flex;
+    align-items: center; /* Вертикальное выравнивание по центру */
+    justify-content: center; /* Горизонтальное выравнивание по центру */
 }
