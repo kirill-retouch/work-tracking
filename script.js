@@ -4,16 +4,28 @@ function timeToPercent(time) {
     return ((hours * 60 + minutes) / 1440) * 100;
 }
 
+// Функция для подсчета длительности сессии в минутах
+function calculateDuration(start, end) {
+    const [startHours, startMinutes] = start.split(":").map(Number);
+    const [endHours, endMinutes] = end.split(":").map(Number);
+    return (endHours * 60 + endMinutes) - (startHours * 60 + startMinutes);
+}
+
 // Функция рендера графика по загруженным данным
 function renderSchedule(workHours) {
     const days = document.querySelectorAll(".day");
-    days.forEach(day => {
+    const totalTimes = document.querySelectorAll(".total-time");
+
+    days.forEach((day, index) => {
         const dayName = day.getAttribute("data-day");
         const segments = workHours[dayName] || [];
+        let totalMinutes = 0;
+
         segments.forEach(segment => {
             const startPercent = timeToPercent(segment.start);
             const endPercent = timeToPercent(segment.end);
             const durationPercent = endPercent - startPercent;
+            totalMinutes += calculateDuration(segment.start, segment.end);
 
             const segmentDiv = document.createElement("div");
             segmentDiv.classList.add("segment");
@@ -22,6 +34,10 @@ function renderSchedule(workHours) {
 
             day.appendChild(segmentDiv);
         });
+
+        // Добавляем итоговое время в соответствующий блок
+        const totalTimeDiv = totalTimes[index];
+        totalTimeDiv.textContent = `${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m`;
     });
 }
 
