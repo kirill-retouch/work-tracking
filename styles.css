@@ -97,8 +97,9 @@ body {
 .total-time-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around; /* Равномерное распределение */
+    justify-content: space-around;
     margin-left: 15px;
+    margin-top: calc(40px + 10px); /* Высота блока hours + отступ */
     height: auto; /* Высота будет совпадать с `.schedule` */
 }
 
