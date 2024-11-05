@@ -14,9 +14,8 @@ function calculateDuration(start, end) {
 // Функция рендера графика по загруженным данным
 function renderSchedule(workHours) {
     const days = document.querySelectorAll(".day");
-    const totalTimes = document.querySelectorAll(".total-time");
 
-    days.forEach((day, index) => {
+    days.forEach(day => {
         const dayName = day.getAttribute("data-day");
         const segments = workHours[dayName] || [];
         let totalMinutes = 0;
@@ -35,9 +34,11 @@ function renderSchedule(workHours) {
             day.appendChild(segmentDiv);
         });
 
-        // Добавляем итоговое время в соответствующий блок
-        const totalTimeDiv = totalTimes[index];
-        totalTimeDiv.textContent = `${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m`;
+        // Найти соответствующий div для итогового времени по атрибуту data-day
+        const totalTimeDiv = document.querySelector(`.total-time[data-day="${dayName}"]`);
+        if (totalTimeDiv) {
+            totalTimeDiv.textContent = `${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m`;
+        }
     });
 }
 
