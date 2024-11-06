@@ -1,7 +1,7 @@
 // Загрузка данных из JSON файла
 async function loadWorkSessions() {
     try {
-        const response = await fetch('path/to/work_time_log.json'); // Укажите путь к JSON файлу
+        const response = await fetch('work_time_log.json');
         const workSessions = await response.json();
         displayWorkSessions(workSessions);
     } catch (error) {
