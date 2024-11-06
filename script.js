@@ -83,11 +83,15 @@ function addMinutesToTotal(element, minutesToAdd) {
     const currentTotal = element.innerText ? element.innerText.split(" ") : ["0h", "0m"];
     const currentHours = parseInt(currentTotal[0].replace("h", ""));
     const currentMinutes = parseInt(currentTotal[1].replace("m", ""));
-    const newTotalMinutes = currentMinutes + minutesToAdd;
+    
+    // Округляем минуты до целого значения
+    const newTotalMinutes = Math.round(currentMinutes + minutesToAdd);
     const updatedHours = currentHours + Math.floor(newTotalMinutes / 60);
     const updatedMinutes = newTotalMinutes % 60;
+    
     element.innerText = `${updatedHours}h ${updatedMinutes}m`;
 }
+
 
 // Загрузка и отображение данных при загрузке страницы
 document.addEventListener("DOMContentLoaded", loadWorkSessions);
