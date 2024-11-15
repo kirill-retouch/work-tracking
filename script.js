@@ -1,3 +1,24 @@
+function getWeekBounds() {
+    const now = new Date();
+    const currentDay = now.getDay();
+    const diff = now.getDate() - currentDay + (currentDay === 0 ? -6 : 1); // Корректировка для недели, начинающейся с понедельника
+    
+    const weekStart = new Date(now.setDate(diff));
+    weekStart.setHours(0, 0, 0, 0);
+    
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    weekEnd.setHours(23, 59, 59, 999);
+    
+    return { weekStart, weekEnd };
+}
+
+function isInCurrentWeek(date) {
+    const { weekStart, weekEnd } = getWeekBounds();
+    const checkDate = new Date(date);
+    return checkDate >= weekStart && checkDate <= weekEnd;
+}
+
 // Загрузка данных из JSON файла
 async function loadWorkSessions() {
     try {
@@ -23,9 +44,22 @@ function addSegment(dayElement, startHour, endHour) {
 
 // Функция для отображения рабочего времени
 function displayWorkSessions(workSessions) {
+    // Очистка существующих сегментов и итогов
+    document.querySelectorAll('.day').forEach(day => {
+        day.innerHTML = '';
+    });
+    document.querySelectorAll('.total-time').forEach(total => {
+        total.innerText = '0h 0m';
+    });
+
     workSessions.forEach(session => {
         const start = new Date(session.start_time);
         const end = new Date(session.end_time);
+
+        // Проверяем, входит ли сессия в текущую неделю
+        if (!isInCurrentWeek(start) && !isInCurrentWeek(end)) {
+            return; // Пропускаем сессии не из текущей недели
+        }
 
         // Если рабочая сессия пересекает полночь
         if (start.getDate() !== end.getDate()) {
