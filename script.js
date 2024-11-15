@@ -1,10 +1,13 @@
+let currentWeekOffset = 0;
+
 function getWeekBounds() {
     const now = new Date();
     const currentDay = now.getDay();
-    const diff = now.getDate() - currentDay + (currentDay === 0 ? -6 : 1); // Корректировка для недели, начинающейся с понедельника
+    const diff = now.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
     
     const weekStart = new Date(now.setDate(diff));
     weekStart.setHours(0, 0, 0, 0);
+    weekStart.setDate(weekStart.getDate() + (currentWeekOffset * 7));
     
     const weekEnd = new Date(weekStart);
     weekEnd.setDate(weekStart.getDate() + 6);
@@ -23,8 +26,9 @@ function isInCurrentWeek(date) {
 async function loadWorkSessions() {
     try {
         const response = await fetch('work_time_log.json');
-        const workSessions = await response.json();
+        workSessions = await response.json();
         displayWorkSessions(workSessions);
+        updateWeekDisplay();
     } catch (error) {
         console.error("Ошибка загрузки данных:", error);
     }
@@ -126,6 +130,52 @@ function addMinutesToTotal(element, minutesToAdd) {
     element.innerText = `${updatedHours}h ${updatedMinutes}m`;
 }
 
+function formatDateRange(start, end) {
+    const formatDate = (date) => `${date.getDate()}.${date.getMonth() + 1}`;
+    return `${formatDate(start)} — ${formatDate(end)}`;
+}
 
-// Загрузка и отображение данных при загрузке страницы
-document.addEventListener("DOMContentLoaded", loadWorkSessions);
+function updateWeekDisplay() {
+    const { weekStart, weekEnd } = getWeekBounds();
+    const weekDisplay = document.querySelector('.week-display');
+    const nextWeekBtn = document.querySelector('.next-week');
+    const prevWeekBtn = document.querySelector('.prev-week');
+    
+    // Обновляем текст
+    if (currentWeekOffset === 0) {
+        weekDisplay.textContent = 'current week';
+    } else {
+        weekDisplay.textContent = formatDateRange(weekStart, weekEnd);
+    }
+    
+    // Управляем состоянием кнопок
+    nextWeekBtn.disabled = currentWeekOffset >= 0;
+    
+    // Проверяем наличие данных за предыдущую неделю
+    const prevWeekStart = new Date(weekStart);
+    prevWeekStart.setDate(prevWeekStart.getDate() - 7);
+    const hasDataForPrevWeek = workSessions.some(session => {
+        const sessionDate = new Date(session.start_time);
+        return sessionDate >= prevWeekStart && sessionDate < weekStart;
+    });
+    prevWeekBtn.disabled = !hasDataForPrevWeek;
+}
+
+// Добавляем обработчики событий
+document.addEventListener("DOMContentLoaded", () => {
+    loadWorkSessions();
+    
+    document.querySelector('.prev-week').addEventListener('click', () => {
+        currentWeekOffset--;
+        displayWorkSessions(workSessions);
+        updateWeekDisplay();
+    });
+    
+    document.querySelector('.next-week').addEventListener('click', () => {
+        if (currentWeekOffset < 0) {
+            currentWeekOffset++;
+            displayWorkSessions(workSessions);
+            updateWeekDisplay();
+        }
+    });
+});

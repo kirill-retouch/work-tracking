@@ -8,66 +8,72 @@
 </head>
 <body>
     <div class="schedule-container">
-        <!-- Контейнер для таблицы -->
-        <div class="table-container">
-            <!-- Часы сверху -->
-            <div class="hours">
-                <div class="hour">1 AM</div>
-                <div class="hour">2 AM</div>
-                <div class="hour">3 AM</div>
-                <div class="hour">4 AM</div>
-                <div class="hour">5 AM</div>
-                <div class="hour">6 AM</div>
-                <div class="hour">7 AM</div>
-                <div class="hour">8 AM</div>
-                <div class="hour">9 AM</div>
-                <div class="hour">10 AM</div>
-                <div class="hour">11 AM</div>
-                <div class="hour">12 PM</div>
-                <div class="hour">1 PM</div>
-                <div class="hour">2 PM</div>
-                <div class="hour">3 PM</div>
-                <div class="hour">4 PM</div>
-                <div class="hour">5 PM</div>
-                <div class="hour">6 PM</div>
-                <div class="hour">7 PM</div>
-                <div class="hour">8 PM</div>
-                <div class="hour">9 PM</div>
-                <div class="hour">10 PM</div>
-                <div class="hour">11 PM</div>
-                <div class="hour">12 AM</div>
-            </div>
-            <!-- Основная таблица с днями недели и сегментами -->
-            <div class="schedule">
-                <div class="days">
-                    <div class="day-label">Mon</div>
-                    <div class="day-label">Tue</div>
-                    <div class="day-label">Wed</div>
-                    <div class="day-label">Thu</div>
-                    <div class="day-label">Fri</div>
-                    <div class="day-label">Sat</div>
-                    <div class="day-label">Sun</div>
-                </div>
-                <div class="days-container">
-                    <div class="day" data-day="Mon"></div>
-                    <div class="day" data-day="Tue"></div>
-                    <div class="day" data-day="Wed"></div>
-                    <div class="day" data-day="Thu"></div>
-                    <div class="day" data-day="Fri"></div>
-                    <div class="day" data-day="Sat"></div>
-                    <div class="day" data-day="Sun"></div>
-                </div>
-            </div>
+        <div class="week-selector">
+            <button class="week-nav prev-week">◀</button>
+            <span class="week-display">current week</span>
+            <button class="week-nav next-week" disabled>▶</button>
         </div>
-        <!-- Контейнер для итогового времени -->
-        <div class="total-time-container">
-            <div class="total-time" data-day="Mon"></div>
-            <div class="total-time" data-day="Tue"></div>
-            <div class="total-time" data-day="Wed"></div>
-            <div class="total-time" data-day="Thu"></div>
-            <div class="total-time" data-day="Fri"></div>
-            <div class="total-time" data-day="Sat"></div>
-            <div class="total-time" data-day="Sun"></div>
+        <div class="content-wrapper">
+            <div class="table-container">
+                <!-- Часы сверху -->
+                <div class="hours">
+                    <div class="hour">1 AM</div>
+                    <div class="hour">2 AM</div>
+                    <div class="hour">3 AM</div>
+                    <div class="hour">4 AM</div>
+                    <div class="hour">5 AM</div>
+                    <div class="hour">6 AM</div>
+                    <div class="hour">7 AM</div>
+                    <div class="hour">8 AM</div>
+                    <div class="hour">9 AM</div>
+                    <div class="hour">10 AM</div>
+                    <div class="hour">11 AM</div>
+                    <div class="hour">12 PM</div>
+                    <div class="hour">1 PM</div>
+                    <div class="hour">2 PM</div>
+                    <div class="hour">3 PM</div>
+                    <div class="hour">4 PM</div>
+                    <div class="hour">5 PM</div>
+                    <div class="hour">6 PM</div>
+                    <div class="hour">7 PM</div>
+                    <div class="hour">8 PM</div>
+                    <div class="hour">9 PM</div>
+                    <div class="hour">10 PM</div>
+                    <div class="hour">11 PM</div>
+                    <div class="hour">12 AM</div>
+                </div>
+                <!-- Основная таблица с днями недели и сегментами -->
+                <div class="schedule">
+                    <div class="days">
+                        <div class="day-label">Mon</div>
+                        <div class="day-label">Tue</div>
+                        <div class="day-label">Wed</div>
+                        <div class="day-label">Thu</div>
+                        <div class="day-label">Fri</div>
+                        <div class="day-label">Sat</div>
+                        <div class="day-label">Sun</div>
+                    </div>
+                    <div class="days-container">
+                        <div class="day" data-day="Mon"></div>
+                        <div class="day" data-day="Tue"></div>
+                        <div class="day" data-day="Wed"></div>
+                        <div class="day" data-day="Thu"></div>
+                        <div class="day" data-day="Fri"></div>
+                        <div class="day" data-day="Sat"></div>
+                        <div class="day" data-day="Sun"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Контейнер для итогового времени -->
+            <div class="total-time-container">
+                <div class="total-time" data-day="Mon"></div>
+                <div class="total-time" data-day="Tue"></div>
+                <div class="total-time" data-day="Wed"></div>
+                <div class="total-time" data-day="Thu"></div>
+                <div class="total-time" data-day="Fri"></div>
+                <div class="total-time" data-day="Sat"></div>
+                <div class="total-time" data-day="Sun"></div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

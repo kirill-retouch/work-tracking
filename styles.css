@@ -2,20 +2,22 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    padding-top: 10vh;
     background-color: #f0f0f0;
     margin: 0;
 }
 
 .schedule-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 1200px;
+    align-items: center;
 }
 
 .table-container {
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -99,7 +101,6 @@ body {
     flex-direction: column;
     justify-content: space-around;
     margin-top: 21px; /* Отступ, чтобы совпадало с таблицей */
-    margin-left: 5px; /* Отступ слева для выравнивания */
 }
 
 .total-time {
@@ -113,6 +114,51 @@ body {
     opacity: 0.9;
     height: 40px; /* Фиксированная высота для соответствия ячейкам таблицы */
     display: flex;
-    align-items: center; /* Вертикальное выравнивание по центру */
-    justify-content: center; /* Горизонтальное выравнивание по центру */
+    align-items: center;
+    justify-content: center;
+}
+
+.week-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+    width: 100%;
+}
+
+.week-nav {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background-color: #4CAF50;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.week-nav:disabled {
+    opacity: 1;
+    cursor: not-allowed;
+    background-color: #cccccc;
+}
+
+.week-nav:not(:disabled):hover {
+    background-color: #45a049;
+}
+
+.week-display {
+    min-width: 150px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.content-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 5px;  /* Добавляем небольшой отступ между таблицей и итогами */
 }
